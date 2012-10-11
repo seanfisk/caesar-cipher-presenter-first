@@ -1,5 +1,8 @@
 A `Presenter First`_ implementation of Sean's previous `Caesar cipher program`_.
 
+.. image:: https://secure.travis-ci.org/seanfisk/caesar-cipher-presenter-first.png
+   :target: https://secure.travis-ci.org/seanfisk/caesar-cipher-presenter-first
+
 .. _Presenter First: http://atomicobject.com/pages/Presenter+First
 .. _Caesar cipher program: https://github.com/seanfisk/caesar-cipher
 
