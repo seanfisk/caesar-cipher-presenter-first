@@ -61,5 +61,6 @@ setup(name=metadata.title,
           # 'gui_scripts': [
           #     'my_module_gui = my_module.gui:main'
           # ]
-      }
+      },
+      test_suite='test.test_all'
       )

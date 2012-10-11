@@ -5,17 +5,12 @@
 import sys
 import unittest
 
+test_all = unittest.TestLoader().discover('tests')
+
 def main():
-    """Runs unit test discovery. Equivalent to this on the
-    command-line::
-
-        python -m unittest discover tests
-
-    No need to return anything since :func:`unittest.main()` directly
-    calls :func:`sys.exit()`.
-
-    """
-    unittest.main(argv=['', 'discover', 'tests'])
+    """Run all discovered unit tests."""
+    result = unittest.TextTestRunner().run(test_all)
+    sys.exit(not result.wasSuccessful())
 
 if __name__ == '__main__':
     main()
