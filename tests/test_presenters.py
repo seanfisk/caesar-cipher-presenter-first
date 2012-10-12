@@ -2,17 +2,7 @@ import unittest
 
 from ludibrio import Mock
 
-from caesar_cipher.presenters import init_presenters, ApplicationPresenter
-from caesar_cipher.models import ApplicationModel
-from caesar_cipher.views import ApplicationView
-
-class TestInitPresenters(unittest.TestCase):
-    def test_init_presenters(self):
-        with Mock() as caesar_cipher:
-            from caesar_cipher.presenters import ApplicationPresenter
-            ApplicationPresenter() >> None
-        init_presenters()
-        caesar_cipher.validate()
+from caesar_cipher.presenters import ApplicationPresenter
 
 class TestApplicationPresenter(unittest.TestCase):
     def setUp(self):

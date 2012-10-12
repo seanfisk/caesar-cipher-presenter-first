@@ -7,9 +7,17 @@ import sys
 import argparse
 from caesar_cipher import metadata
 
+from caesar_cipher.presenters import ApplicationPresenter
+from caesar_cipher.models import ApplicationModel
+from caesar_cipher.views import ApplicationView
+
+from PySide import QtGui
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
+    
+    app = QtGui.QApplication(argv)
 
     author_strings = []
     for name, email in zip(metadata.authors, metadata.emails):
@@ -33,7 +41,9 @@ URL: <{url}>
 
     args = arg_parser.parse_args(args=argv[1:])
 
-    print(epilog)
+    presenter = ApplicationPresenter(ApplicationModel(),ApplicationView())
+
+    return app.exec_()
 
 if __name__ == '__main__':
     sys.exit(main())
