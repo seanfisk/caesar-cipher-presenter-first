@@ -9,7 +9,9 @@ class ApplicationPresenter(object):
         self.register_for_events()
 
     def user_submits(self):
-        pass
+        result = self.model.caesar_encode(self.view.get_message(),
+                                          self.view.get_key())
+        self.view.set_result(result)
 
     def register_for_events(self):
         self.view.when_user_submits(self.user_submits)
