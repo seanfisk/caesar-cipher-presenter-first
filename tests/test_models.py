@@ -14,17 +14,23 @@ class TestCaesarEncode(unittest.TestCase):
         result = self.model.caesar_encode('bananas',1)
         self.assertEqual(result,'cbobobt')
     def test_abcde(self):
-        result = self.model.caesar_encode('abcde',1)
-        self.assertEqual(result,'bcdef')
+        result = self.model.caesar_encode('abcde',13)
+        self.assertEqual(result,'nopqr')
     def test_gwizdz(self):
         result = self.model.caesar_encode('gwizdz',1)
         self.assertEqual(result,'hxjaea')
     def test_uppercase(self):
-        result = self.model.caesar_encode('ABCDE',1)
-        self.assertEqual(result,'BCDEF')
+        result = self.model.caesar_encode('ABCDE',-1)
+        self.assertEqual(result,'ZABCD')
     def test_upper_lower(self):
         result = self.model.caesar_encode('AbCdE',1)
         self.assertEqual(result,'BcDeF')
     def test_boundary(self):
         result = self.model.caesar_encode('AaZz',2)
         self.assertEqual(result,'CcBb')
+    def test_odd_chars(self):
+        result = self.model.caesar_encode('#ABCD!',1)
+        self.assertEqual(result,'BCDE')
+    def test_sentence(self):
+        result = self.model.caesar_encode('python testing is awesome',13)
+        self.assertEqual(result,'ktocji oznodib dn vrznjhz')
