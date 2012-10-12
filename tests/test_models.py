@@ -30,10 +30,10 @@ class TestCaesarEncode(unittest.TestCase):
         self.assertEqual(result,'CcBb')
     def test_odd_chars(self):
         result = self.model.caesar_encode('#ABCD!',1)
-        self.assertEqual(result,'BCDE')
+        self.assertEqual(result,'#BCDE!')
     def test_sentence(self):
         result = self.model.caesar_encode('python testing is awesome',13)
-        self.assertEqual(result,'ktocji oznodib dn vrznjhz')
+        self.assertEqual(result,'clguba grfgvat vf njrfbzr')
     def test_phrase(self):
         result = self.model.caesar_encode(
             'I like my messages de-ciphered.',-10)
