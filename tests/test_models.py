@@ -16,3 +16,15 @@ class TestCaesarEncode(unittest.TestCase):
     def test_abcde(self):
         result = self.model.caesar_encode('abcde',1)
         self.assertEqual(result,'bcdef')
+    def test_gwizdz(self):
+        result = self.model.caesar_encode('gwizdz',1)
+        self.assertEqual(result,'hxjaea')
+    def test_uppercase(self):
+        result = self.model.caesar_encode('ABCDE',1)
+        self.assertEqual(result,'BCDEF')
+    def test_upper_lower(self):
+        result = self.model.caesar_encode('AbCdE',1)
+        self.assertEqual(result,'BcDeF')
+    def test_boundary(self):
+        result = self.model.caesar_encode('AaZz',2)
+        self.assertEqual(result,'CcBb')
