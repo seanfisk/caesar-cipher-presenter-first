@@ -55,11 +55,11 @@ setup(name=metadata.title,
       zip_safe=False, # don't use eggs
       entry_points={
           'console_scripts': [
-              'my_module_runner = my_module.main:main'
+              'caesar_cipher = caesar_cipher.main:main'
           ],
           # if you have a gui, use this
           # 'gui_scripts': [
-          #     'my_module_gui = my_module.gui:main'
+          #     'caesar_cipher_gui = caesar_cipher.gui:main'
           # ]
       },
       test_suite='test.test_all'

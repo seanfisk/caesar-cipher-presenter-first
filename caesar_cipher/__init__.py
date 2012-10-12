@@ -1,4 +1,4 @@
-""":mod:`my_module` --- Caesar cipher"""
+""":mod:`caesar_cipher` --- Caesar cipher"""
 
 import metadata
 __version__ = metadata.version
