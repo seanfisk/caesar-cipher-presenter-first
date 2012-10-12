@@ -28,3 +28,7 @@ class TestCaesarEncode(unittest.TestCase):
     def test_boundary(self):
         result = self.model.caesar_encode('AaZz',2)
         self.assertEqual(result,'CcBb')
+    def test_phrase(self):
+        result = self.model.caesar_encode(
+            'I like my messages de-ciphered.',-10)
+        self.assertEqual(result, 'Y byau co cuiiqwui tu-syfxuhut.')

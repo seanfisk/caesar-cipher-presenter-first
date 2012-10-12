@@ -1,11 +1,16 @@
+ASCII_LOWER_OFFSET = ord('a')
+ASCII_UPPER_OFFSET = ord('A')
+ALPHABET_SIZE = 26
+
 class ApplicationModel(object):
     def caesar_encode(self, message, key):
-        result = []
-        check = 0
-        for i in range(len(message)):
-            if(message[i].islower()):
-                check = ord('a') + ((ord(message[i]) - ord('a') + key) % 26)
-            else:
-                check = ord('A') + ((ord(message[i]) - ord('A') + key) % 26)
-            result.append(chr(check))
-        return ''.join(result)
+        result_list = []
+        for char in message:
+            if char.isalpha():
+                if char.islower():
+                    offset = ASCII_LOWER_OFFSET
+                else:
+                    offset = ASCII_UPPER_OFFSET
+                char = chr((ord(char) - offset + key) % ALPHABET_SIZE + offset)
+            result_list.append(char)
+        return ''.join(result_list)
