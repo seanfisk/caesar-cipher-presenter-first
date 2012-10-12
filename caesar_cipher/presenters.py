@@ -1,5 +1,7 @@
-from caesar_cipher import application_presenter
+def init_presenters():
+    """Create all presenters."""
+    ApplicationPresenter()
 
-def register_for_events():
-    """Tell all presenters to register for events."""
-    application_presenter.register_events()
+class ApplicationPresenter(object):
+    def __init__(self):
+        pass
