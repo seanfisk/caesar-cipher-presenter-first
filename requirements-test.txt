@@ -1,2 +1,5 @@
 # mocking
 ludibrio
+
+# style check
+pep8
