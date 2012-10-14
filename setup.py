@@ -24,6 +24,10 @@ install_requirements = [
     'argparse',
 ]
 
+test_requirements = [
+    'mock'
+]
+
 # see here for more options:
 # <http://packages.python.org/distribute/setuptools.html>
 setup(name=metadata.title,
@@ -63,5 +67,6 @@ setup(name=metadata.title,
           #     'caesar_cipher_gui = caesar_cipher.gui:main'
           # ]
       },
+      test_requires=test_requirements,
       test_suite='test.test_all'
       )

@@ -5,13 +5,11 @@
 from __future__ import print_function
 import sys
 import argparse
-from caesar_cipher import metadata
-
-from caesar_cipher.presenters import ApplicationPresenter
-from caesar_cipher.models import ApplicationModel
-from caesar_cipher.views import ApplicationView
 
 from PySide import QtGui
+
+from caesar_cipher import metadata
+from caesar_cipher.composers import create_qt_presenter
 
 
 def main(argv=None):
@@ -42,7 +40,7 @@ URL: <{url}>
 
     args = arg_parser.parse_args(args=argv[1:])
 
-    presenter = ApplicationPresenter(ApplicationModel(), ApplicationView())
+    create_qt_presenter()
 
     return app.exec_()
 

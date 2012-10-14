@@ -1,5 +1,2 @@
-# mocking
-ludibrio
-
-# style check
+mock
 pep8
