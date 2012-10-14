@@ -49,7 +49,7 @@ class ApplicationView(QtGui.QMainWindow):
         return self.message_input.text()
 
     def get_key(self):
-        return (self.key_input.text())
+        return self.key_input.text()
 
     def set_result(self, result):
         self.result.setText(result)
