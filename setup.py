@@ -11,6 +11,7 @@ distribute_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
+
 # credit: <http://packages.python.org/an_example_pypi_project/setuptools.html>
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
@@ -52,7 +53,7 @@ setup(name=metadata.title,
       ],
       packages=find_packages(),
       install_requires=install_requirements,
-      zip_safe=False, # don't use eggs
+      zip_safe=False,  # don't use eggs
       entry_points={
           'console_scripts': [
               'caesar_cipher = caesar_cipher.main:main'

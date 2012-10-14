@@ -13,10 +13,11 @@ from caesar_cipher.views import ApplicationView
 
 from PySide import QtGui
 
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
-    
+
     app = QtGui.QApplication(argv)
 
     author_strings = []
@@ -29,10 +30,10 @@ def main(argv=None):
 {authors}
 URL: <{url}>
 '''.format(
-    title=metadata.nice_title,
-    version=metadata.version,
-    authors='\n'.join(author_strings),
-    url=metadata.url)
+        title=metadata.nice_title,
+        version=metadata.version,
+        authors='\n'.join(author_strings),
+        url=metadata.url)
 
     arg_parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -41,7 +42,7 @@ URL: <{url}>
 
     args = arg_parser.parse_args(args=argv[1:])
 
-    presenter = ApplicationPresenter(ApplicationModel(),ApplicationView())
+    presenter = ApplicationPresenter(ApplicationModel(), ApplicationView())
 
     return app.exec_()
 

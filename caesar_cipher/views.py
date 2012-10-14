@@ -1,29 +1,30 @@
 from PySide import QtGui
 
+
 class ApplicationView(QtGui.QWidget):
-    
+
     def __init__(self, parent=None):
-        super(ApplicationView,self).__init__(parent)
-        
+        super(ApplicationView, self).__init__(parent)
+
         self.submit_callback = None
         self.layout = QtGui.QFormLayout(self)
-        
+
         self.message_input = QtGui.QLineEdit(self)
-        self.layout.addRow('Message',self.message_input)
-        
+        self.layout.addRow('Message', self.message_input)
+
         self.key_input = QtGui.QLineEdit(self)
-        self.layout.addRow('Key',self.key_input)
-        
+        self.layout.addRow('Key', self.key_input)
+
         self.result = QtGui.QLabel(self)
-        self.layout.addRow('Result',self.result)
-        
-        self.submit = QtGui.QPushButton('Encode',self)
+        self.layout.addRow('Result', self.result)
+
+        self.submit = QtGui.QPushButton('Encode', self)
         self.layout.addRow(self.submit)
-        
+
         self.show()
         self.raise_()
-    
-    def when_user_submits(self,callback):
+
+    def when_user_submits(self, callback):
         if self.submit_callback:
             self.submit.clicked.disconnect(self.submit_callback)
         self.submit_callback = callback
@@ -35,5 +36,5 @@ class ApplicationView(QtGui.QWidget):
     def get_key(self):
         return int(self.key_input.text())
 
-    def set_result(self,result):
+    def set_result(self, result):
         self.result.setText(result)

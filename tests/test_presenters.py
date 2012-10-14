@@ -4,6 +4,7 @@ from ludibrio import Mock
 
 from caesar_cipher.presenters import ApplicationPresenter
 
+
 class TestApplicationPresenter(unittest.TestCase):
     def setUp(self):
         self.mock_model = Mock()
