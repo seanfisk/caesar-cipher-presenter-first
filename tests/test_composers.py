@@ -2,6 +2,7 @@ import unittest
 
 from mock import MagicMock, patch
 
+
 @patch.dict('sys.modules', {'PySide': MagicMock()})
 class TestCreateQtPresenter(unittest.TestCase):
 
