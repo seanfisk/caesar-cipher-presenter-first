@@ -9,4 +9,3 @@ from caesar_cipher.presenters import ApplicationPresenter
 def create_qt_presenter():
     """Create an MVP triad for a Qt-based application presenter."""
     ApplicationPresenter(ApplicationModel(), ApplicationView())
-    # pass

@@ -1,7 +1,5 @@
 import unittest
 
-from ludibrio import Mock
-
 from caesar_cipher.models import ApplicationModel
 
 

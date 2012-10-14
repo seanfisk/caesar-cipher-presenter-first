@@ -1,8 +1,8 @@
 import unittest
 
-from mock import patch
+from mock import MagicMock, patch
 
-
+@patch.dict('sys.modules', {'PySide': MagicMock()})
 class TestCreateQtPresenter(unittest.TestCase):
 
     @patch('caesar_cipher.composers.ApplicationPresenter', autospec=True)
@@ -12,8 +12,8 @@ class TestCreateQtPresenter(unittest.TestCase):
         mock_model.return_value = 'fake model'
         mock_view.return_value = 'fake view'
         mock_presenter.return_value = 'fake presenter'
-        from caesar_cipher.composers import create_qt_presenter
 
+        from caesar_cipher.composers import create_qt_presenter
         create_qt_presenter()
 
         mock_model.assert_called_once_with()

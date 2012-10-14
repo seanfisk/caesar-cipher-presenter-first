@@ -7,7 +7,7 @@ A `Presenter First`_ implementation of Sean's previous `Caesar cipher program`_.
 .. _Caesar cipher program: https://github.com/seanfisk/caesar-cipher
 
 Test are written using `unittest` and mocks are created using
-`ludibrio`.
+`mock`.
 
 Run the tests in the following way::
 
