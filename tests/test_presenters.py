@@ -11,9 +11,9 @@ class TestApplicationPresenter(unittest.TestCase):
         self.mock_view = MagicMock()
         self.presenter = ApplicationPresenter(self.mock_model, self.mock_view)
 
-    def test_register_for_events(self):
+    def test_init(self):
         self.mock_view.when_user_submits.assert_called_once_with(
-            self.presenter.user_submits)
+            self.presenter._user_submits)
 
     def test_user_submits(self):
         self.mock_view.get_message.return_value = 'abcd'
@@ -21,7 +21,7 @@ class TestApplicationPresenter(unittest.TestCase):
         self.mock_model.caesar_encode.return_value = 'bcde'
         self.mock_view.set_result.return_value = None
 
-        self.presenter.user_submits()
+        self.presenter._user_submits()
 
         self.mock_view.get_message.assert_called_once_with()
         self.mock_view.get_key.assert_called_once_with()
