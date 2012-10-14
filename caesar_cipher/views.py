@@ -1,6 +1,7 @@
 from PySide import QtGui
 import metadata
 
+
 class ApplicationView(QtGui.QMainWindow):
 
     def __init__(self, parent=None):
@@ -33,7 +34,7 @@ class ApplicationView(QtGui.QMainWindow):
         #Show it!
         self.show()
         self.raise_()
-    
+
     def about(self):
         """Create and show the about dialog."""
         AboutDialog(self).exec_()
@@ -69,6 +70,6 @@ class AboutDialog(QtGui.QDialog):
                                             metadata.copyright, self)
         self.layout.addWidget(self.copyright_label)
         self.url_label = QtGui.QLabel(
-                                      '<a href="{0}">{0}</a>'.format(metadata.url), self)
+            '<a href="{0}">{0}</a>'.format(metadata.url), self)
         self.url_label.setOpenExternalLinks(True)
         self.layout.addWidget(self.url_label)
