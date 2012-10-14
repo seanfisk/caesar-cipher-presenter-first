@@ -2,7 +2,6 @@
  Sean
 ======
 
-- Add a composer for creating the presenter (check other Presenter First example)
 - Better event handling
 
 ========
