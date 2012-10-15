@@ -6,5 +6,5 @@ class ApplicationPresenter(object):
 
     def _user_submits(self):
         result = self.model.caesar_encode(self.view.get_message(),
-                                          self.view.get_key())
+                                          int(self.view.get_key()))
         self.view.set_result(result)
