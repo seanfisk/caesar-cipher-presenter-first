@@ -10,7 +10,7 @@ class ApplicationView(QtGui.QMainWindow):
         self.submit_callback = None
         self.setCentralWidget(QtGui.QWidget(self))
 
-        #Menu
+        # Menu
         self.menu_bar = QtGui.QMenuBar()
         self.file_menu = self.menu_bar.addMenu('&File')
         self.quit_action = self.file_menu.addAction('&Quit')
@@ -20,18 +20,18 @@ class ApplicationView(QtGui.QMainWindow):
         self.about_action.triggered.connect(self.about)
         self.setMenuBar(self.menu_bar)
 
-        #Layout
+        # Layout
         self.layout = QtGui.QFormLayout(self.centralWidget())
-        self.message_input = QtGui.QLineEdit(self)
+        self.message_input = QtGui.QLineEdit(self.centralWidget())
         self.layout.addRow('Message', self.message_input)
-        self.key_input = QtGui.QLineEdit(self)
+        self.key_input = QtGui.QLineEdit(self.centralWidget())
         self.layout.addRow('Key', self.key_input)
-        self.result = QtGui.QLabel(self)
+        self.result = QtGui.QLabel(self.centralWidget())
         self.layout.addRow('Result', self.result)
-        self.submit = QtGui.QPushButton('Encode', self)
+        self.submit = QtGui.QPushButton('Encode', self.centralWidget())
         self.layout.addRow(self.submit)
 
-        #Show it!
+        # Show it!
         self.show()
         self.raise_()
 
