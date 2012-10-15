@@ -54,6 +54,10 @@ class ApplicationView(QtGui.QMainWindow):
     def set_result(self, result):
         self.result.setText(result)
 
+    def show_error(self, message):
+        error_dialog = QtGui.QErrorMessage(self)
+        error_dialog.showMessage(message)
+
 
 class AboutDialog(QtGui.QDialog):
     """Shows information about the program."""
