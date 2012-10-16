@@ -1,8 +1,12 @@
 import unittest
 
-from mock import patch, sentinel, call
+from mock import patch, sentinel, call, MagicMock
 
 
+# We don't want to require PySide.QtGui for testing, since we are not
+# testing our user interface. However, we may require PySide.QtCore
+# since we are using Qt's signals and slots mechanism.
+@patch('PySide.QtGui', MagicMock())
 class TestCreateQtPresenter(unittest.TestCase):
 
     @patch('caesar_cipher.composers.ApplicationPresenter', autospec=True)
