@@ -1,14 +1,22 @@
+""":mod:`caesar_cipher.views` --- Application user interface
+"""
+
 from PySide import QtCore, QtGui
 import metadata
 
 
 class ApplicationView(QtGui.QMainWindow):
-
+    """Primary application view."""
     submitted = QtCore.Signal(str, str)
     text_changed = QtCore.Signal(str, str)
     auto_encrypt_toggled = QtCore.Signal(bool)
 
     def __init__(self, parent=None):
+        """Construct a main view.
+
+        :param parent: widget parent
+        :type parent: :class:`QtGui.QWidget`
+        """
         super(ApplicationView, self).__init__(parent)
 
         self.setCentralWidget(QtGui.QWidget(self))
@@ -26,18 +34,19 @@ class ApplicationView(QtGui.QMainWindow):
         # Layout
         self.layout = QtGui.QFormLayout(self.centralWidget())
         self.text_input = QtGui.QPlainTextEdit(self.centralWidget())
-        self.text_input.textChanged.connect(self.text_input_changed)
+        self.text_input.textChanged.connect(self._text_input_changed)
         self.layout.addRow('Text', self.text_input)
         self.key_input = QtGui.QLineEdit(self.centralWidget())
         self.layout.addRow('Key', self.key_input)
         self.auto_encrypt = QtGui.QCheckBox()
-        self.auto_encrypt.stateChanged.connect(self.auto_encrypt_state_changed)
+        self.auto_encrypt.stateChanged.connect(
+            self._auto_encrypt_state_changed)
         self.layout.addRow('Auto-Encrypt', self.auto_encrypt)
         self.result_output = QtGui.QPlainTextEdit(self.centralWidget())
         self.result_output.setReadOnly(True)
         self.layout.addRow('Result', self.result_output)
         self.submit_button = QtGui.QPushButton('Encode', self.centralWidget())
-        self.submit_button.clicked.connect(self.submit_clicked)
+        self.submit_button.clicked.connect(self._submit_clicked)
         self.layout.addRow(self.submit_button)
 
         # Show it!
@@ -49,32 +58,56 @@ class ApplicationView(QtGui.QMainWindow):
         AboutDialog(self).exec_()
 
     def get_text(self):
+        """Return the widget's entered text.
+
+        :return: the text
+        :rtype: :class:`str`
+        """
         return self.text_input.toPlainText()
 
     def get_key(self):
+        """Return the widget's entered key.
+
+        :return: the key
+        :rtype: :class:`str`
+        """
         return self.key_input.text()
 
     def set_result(self, result):
+        """Set encoded text result.
+
+        :param result: the encoded text
+        :type result: :class:`str`
+        """
         self.result_output.setPlainText(result)
 
     def show_error(self, message):
+        """Show the user an error dialog.
+
+        :param message: error message
+        :type message: :class:`str`
+        """
         error_dialog = QtGui.QErrorMessage(self)
         error_dialog.showMessage(message)
 
-    def submit_clicked(self):
+    def _submit_clicked(self):
         self.submitted.emit(self.get_text(), self.get_key())
 
-    def auto_encrypt_state_changed(self, int):
+    def _auto_encrypt_state_changed(self, int):
         self.auto_encrypt_toggled.emit(self.auto_encrypt.isChecked())
 
-    def text_input_changed(self):
+    def _text_input_changed(self):
         self.text_changed.emit(self.get_text(), self.get_key())
 
 
 class AboutDialog(QtGui.QDialog):
     """Shows information about the program."""
     def __init__(self, parent=None):
-        """Construct the dialog."""
+        """Construct the dialog.
+
+        :param parent: the widget's parent
+        :type parent: :class:`QtGui.QWidget`
+        """
         super(AboutDialog, self).__init__(parent)
         self.setWindowTitle('About ' + metadata.nice_title)
         self.layout = QtGui.QVBoxLayout(self)
