@@ -1,12 +1,13 @@
 import unittest
-from mock import MagicMock, sentinel
+from mock import MagicMock, sentinel, create_autospec
 
 from caesar_cipher.presenters import ApplicationPresenter
+from caesar_cipher.models import ApplicationModel
 
 
 class TestApplicationPresenter(unittest.TestCase):
     def setUp(self):
-        self.mock_model = MagicMock()
+        self.mock_model = create_autospec(ApplicationModel, spec_set=True)
         self.mock_view = MagicMock()
         self.presenter = ApplicationPresenter(self.mock_model, self.mock_view)
 

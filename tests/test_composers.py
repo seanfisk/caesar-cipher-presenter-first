@@ -12,9 +12,12 @@ from mock import patch, sentinel, call, MagicMock
 @patch.dict('sys.modules', {'PySide': MagicMock()})
 class TestCreateQtPresenter(unittest.TestCase):
 
-    @patch('caesar_cipher.composers.ApplicationPresenter', autospec=True)
-    @patch('caesar_cipher.composers.ApplicationView', autospec=True)
-    @patch('caesar_cipher.composers.ApplicationModel', autospec=True)
+    @patch('caesar_cipher.composers.ApplicationPresenter',
+           autospec=True, spec_set=True)
+    @patch('caesar_cipher.composers.ApplicationView',
+           autospec=True, spec_set=True)
+    @patch('caesar_cipher.composers.ApplicationModel',
+           autospec=True, spec_set=True)
     def test_create_qt_presenter(self, mock_model, mock_view, mock_presenter):
         mock_model.return_value = sentinel.model
         mock_view.return_value = sentinel.view
