@@ -1,6 +1,6 @@
 import unittest
 
-from mock import MagicMock
+from mock import MagicMock, sentinel
 
 from caesar_cipher.presenters import ApplicationPresenter
 
@@ -11,9 +11,11 @@ class TestApplicationPresenter(unittest.TestCase):
         self.mock_view = MagicMock()
         self.presenter = ApplicationPresenter(self.mock_model, self.mock_view)
 
-    def test_init(self):
-        self.mock_view.when_user_submits.assert_called_once_with(
-            self.presenter._user_submits)
+    def test_register_for_events(self):
+        self.presenter.register_for_events()
+
+        self.mock_view.submitted.\
+            connect.assert_called_with(self.presenter._user_submits)
 
     def test_user_submits_correct_format(self):
         self.mock_view.get_key.return_value = '1'

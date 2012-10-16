@@ -1,13 +1,14 @@
-from PySide import QtGui
+from PySide import QtCore, QtGui
 import metadata
 
 
 class ApplicationView(QtGui.QMainWindow):
 
+    submitted = QtCore.Signal()
+
     def __init__(self, parent=None):
         super(ApplicationView, self).__init__(parent)
 
-        self.submit_callback = None
         self.setCentralWidget(QtGui.QWidget(self))
 
         # Menu
@@ -29,6 +30,7 @@ class ApplicationView(QtGui.QMainWindow):
         self.result = QtGui.QLabel(self.centralWidget())
         self.layout.addRow('Result', self.result)
         self.submit = QtGui.QPushButton('Encode', self.centralWidget())
+        self.submit.clicked.connect(self.submitted)
         self.layout.addRow(self.submit)
 
         # Show it!
@@ -38,12 +40,6 @@ class ApplicationView(QtGui.QMainWindow):
     def about(self):
         """Create and show the about dialog."""
         AboutDialog(self).exec_()
-
-    def when_user_submits(self, callback):
-        if self.submit_callback:
-            self.submit.clicked.disconnect(self.submit_callback)
-        self.submit_callback = callback
-        self.submit.clicked.connect(self.submit_callback)
 
     def get_message(self):
         return self.message_input.text()

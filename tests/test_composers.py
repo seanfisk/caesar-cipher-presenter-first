@@ -1,22 +1,25 @@
 import unittest
 
-from mock import MagicMock, patch
+from mock import patch, sentinel, call
 
 
-@patch.dict('sys.modules', {'PySide': MagicMock()})
 class TestCreateQtPresenter(unittest.TestCase):
 
     @patch('caesar_cipher.composers.ApplicationPresenter', autospec=True)
     @patch('caesar_cipher.composers.ApplicationView', autospec=True)
     @patch('caesar_cipher.composers.ApplicationModel', autospec=True)
     def test_create_qt_presenter(self, mock_model, mock_view, mock_presenter):
-        mock_model.return_value = 'fake model'
-        mock_view.return_value = 'fake view'
-        mock_presenter.return_value = 'fake presenter'
+        mock_model.return_value = sentinel.model
+        mock_view.return_value = sentinel.view
+        presenter = mock_presenter.return_value
 
         from caesar_cipher.composers import create_qt_presenter
-        create_qt_presenter()
+        retval = create_qt_presenter()
+        self.assertEqual(retval, presenter)
 
         mock_model.assert_called_once_with()
         mock_view.assert_called_once_with()
-        mock_presenter.assert_called_once_with('fake model', 'fake view')
+        expected_presenter_calls = \
+            call(sentinel.model, sentinel.view).\
+            register_for_events().call_list()
+        self.assertEqual(mock_presenter.mock_calls, expected_presenter_calls)

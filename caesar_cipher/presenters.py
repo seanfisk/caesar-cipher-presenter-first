@@ -1,8 +1,13 @@
+from PySide import QtCore
+
+
 class ApplicationPresenter(object):
     def __init__(self, model, view):
         self.model = model
         self.view = view
-        self.view.when_user_submits(self._user_submits)
+
+    def register_for_events(self):
+        self.view.submitted.connect(self._user_submits)
 
     def _user_submits(self):
         try:

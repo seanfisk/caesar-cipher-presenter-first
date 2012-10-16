@@ -40,7 +40,7 @@ URL: <{url}>
 
     args = arg_parser.parse_args(args=argv[1:])
 
-    create_qt_presenter()
+    presenter = create_qt_presenter()
 
     return app.exec_()
 
