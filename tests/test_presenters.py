@@ -15,7 +15,20 @@ class TestApplicationPresenter(unittest.TestCase):
         self.presenter.register_for_events()
 
         self.mock_view.submitted.\
-            connect.assert_called_with(self.presenter._user_submits)
+            connect.assert_called_once_with(self.presenter._user_submits)
+        self.mock_view.auto_encrypt_toggled.\
+            connect.assert_called_once_with(
+                self.presenter._auto_encrypt_toggled)
+
+    def test_auto_encrypt_on(self):
+        self.presenter._auto_encrypt_toggled(True)
+        self.mock_view.text_changed.connect.assert_called_once_with(
+            self.presenter._user_submits)
+
+    def test_auto_encrypt_off(self):
+        self.presenter._auto_encrypt_toggled(False)
+        self.mock_view.text_changed.disconnect.assert_called_once_with(
+            self.presenter._user_submits)
 
     def test_user_submits_correct_format(self):
         self.mock_view.get_key.return_value = '1'

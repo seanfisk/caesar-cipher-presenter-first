@@ -5,6 +5,8 @@ import metadata
 class ApplicationView(QtGui.QMainWindow):
 
     submitted = QtCore.Signal()
+    text_changed = QtCore.Signal(str)
+    auto_encrypt_toggled = QtCore.Signal(bool)
 
     def __init__(self, parent=None):
         super(ApplicationView, self).__init__(parent)
@@ -24,9 +26,13 @@ class ApplicationView(QtGui.QMainWindow):
         # Layout
         self.layout = QtGui.QFormLayout(self.centralWidget())
         self.message_input = QtGui.QLineEdit(self.centralWidget())
+        self.message_input.textChanged.connect(self.text_changed)
         self.layout.addRow('Message', self.message_input)
         self.key_input = QtGui.QLineEdit(self.centralWidget())
         self.layout.addRow('Key', self.key_input)
+        self.auto_encrypt = QtGui.QCheckBox()
+        self.auto_encrypt.stateChanged.connect(self.auto_encrypt_state_changed)
+        self.layout.addRow('Auto-Encrypt', self.auto_encrypt)
         self.result = QtGui.QLabel(self.centralWidget())
         self.layout.addRow('Result', self.result)
         self.submit = QtGui.QPushButton('Encode', self.centralWidget())
@@ -53,6 +59,9 @@ class ApplicationView(QtGui.QMainWindow):
     def show_error(self, message):
         error_dialog = QtGui.QErrorMessage(self)
         error_dialog.showMessage(message)
+
+    def auto_encrypt_state_changed(self, int):
+        self.auto_encrypt_toggled.emit(self.auto_encrypt.isChecked())
 
 
 class AboutDialog(QtGui.QDialog):

@@ -5,6 +5,13 @@ class ApplicationPresenter(object):
 
     def register_for_events(self):
         self.view.submitted.connect(self._user_submits)
+        self.view.auto_encrypt_toggled.connect(self._auto_encrypt_toggled)
+
+    def _auto_encrypt_toggled(self, switch_on):
+        if switch_on:
+            self.view.text_changed.connect(self._user_submits)
+        else:
+            self.view.text_changed.disconnect(self._user_submits)
 
     def _user_submits(self):
         try:
