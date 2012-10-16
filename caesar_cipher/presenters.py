@@ -13,11 +13,11 @@ class ApplicationPresenter(object):
         else:
             self.view.text_changed.disconnect(self._user_submits)
 
-    def _user_submits(self):
+    def _user_submits(self, text, key):
         try:
-            key_int = int(self.view.get_key())
+            key_int = int(key)
         except ValueError:
             self.view.show_error('Please enter a valid integer for the key.')
             return
-        result = self.model.caesar_encode(self.view.get_message(), key_int)
+        result = self.model.caesar_encode(text, key_int)
         self.view.set_result(result)

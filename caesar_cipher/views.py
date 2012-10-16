@@ -4,8 +4,8 @@ import metadata
 
 class ApplicationView(QtGui.QMainWindow):
 
-    submitted = QtCore.Signal()
-    text_changed = QtCore.Signal(str)
+    submitted = QtCore.Signal(str, str)
+    text_changed = QtCore.Signal(str, str)
     auto_encrypt_toggled = QtCore.Signal(bool)
 
     def __init__(self, parent=None):
@@ -25,9 +25,9 @@ class ApplicationView(QtGui.QMainWindow):
 
         # Layout
         self.layout = QtGui.QFormLayout(self.centralWidget())
-        self.message_input = QtGui.QLineEdit(self.centralWidget())
-        self.message_input.textChanged.connect(self.text_changed)
-        self.layout.addRow('Message', self.message_input)
+        self.text_input = QtGui.QLineEdit(self.centralWidget())
+        self.text_input.textChanged.connect(self.text_input_changed)
+        self.layout.addRow('Text', self.text_input)
         self.key_input = QtGui.QLineEdit(self.centralWidget())
         self.layout.addRow('Key', self.key_input)
         self.auto_encrypt = QtGui.QCheckBox()
@@ -36,7 +36,7 @@ class ApplicationView(QtGui.QMainWindow):
         self.result = QtGui.QLabel(self.centralWidget())
         self.layout.addRow('Result', self.result)
         self.submit = QtGui.QPushButton('Encode', self.centralWidget())
-        self.submit.clicked.connect(self.submitted)
+        self.submit.clicked.connect(self.submit_clicked)
         self.layout.addRow(self.submit)
 
         # Show it!
@@ -47,8 +47,8 @@ class ApplicationView(QtGui.QMainWindow):
         """Create and show the about dialog."""
         AboutDialog(self).exec_()
 
-    def get_message(self):
-        return self.message_input.text()
+    def get_text(self):
+        return self.text_input.text()
 
     def get_key(self):
         return self.key_input.text()
@@ -60,8 +60,14 @@ class ApplicationView(QtGui.QMainWindow):
         error_dialog = QtGui.QErrorMessage(self)
         error_dialog.showMessage(message)
 
+    def submit_clicked(self):
+        self.submitted.emit(self.get_text(), self.get_key())
+
     def auto_encrypt_state_changed(self, int):
         self.auto_encrypt_toggled.emit(self.auto_encrypt.isChecked())
+
+    def text_input_changed(self, text):
+        self.text_changed.emit(text, self.get_key())
 
 
 class AboutDialog(QtGui.QDialog):
