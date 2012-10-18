@@ -2,7 +2,7 @@
 """
 
 from caesar_cipher.models import ApplicationModel
-from caesar_cipher.views import ApplicationView
+from caesar_cipher.views import qt
 from caesar_cipher.presenters import ApplicationPresenter
 
 
@@ -12,6 +12,6 @@ def create_qt_presenter():
     :return: the created presenter
     :rtype: :class:`ApplicationPresenter`
     """
-    presenter = ApplicationPresenter(ApplicationModel(), ApplicationView())
+    presenter = ApplicationPresenter(ApplicationModel(), qt.ApplicationView())
     presenter.register_for_events()
     return presenter

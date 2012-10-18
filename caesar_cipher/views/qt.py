@@ -2,7 +2,7 @@
 """
 
 from PySide import QtCore, QtGui
-import metadata
+from caesar_cipher import metadata
 
 
 class ApplicationView(QtGui.QMainWindow):

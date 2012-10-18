@@ -14,7 +14,7 @@ class TestCreateQtPresenter(unittest.TestCase):
 
     @patch('caesar_cipher.composers.ApplicationPresenter',
            autospec=True, spec_set=True)
-    @patch('caesar_cipher.composers.ApplicationView',
+    @patch('caesar_cipher.composers.qt.ApplicationView',
            autospec=True, spec_set=True)
     @patch('caesar_cipher.composers.ApplicationModel',
            autospec=True, spec_set=True)
