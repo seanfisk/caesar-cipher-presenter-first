@@ -38,7 +38,6 @@ API Documentation
 
 .. automodule:: caesar_cipher.views
     :members:
-    :undoc-members:
     :show-inheritance:
 
 :mod:`presenters` Module
