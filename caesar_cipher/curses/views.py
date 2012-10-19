@@ -26,6 +26,8 @@ class ApplicationView(object):
     def __init__(self):
         self.title_map = urwid.AttrMap(
             urwid.Text('Caesar Cipher', align='center'), 'title')
+        self.help_map = urwid.AttrMap(
+            urwid.Text('Esc: quit  Up/Down: shift between fields'), 'title')
         self.text_edit = urwid.Edit(caption='Text: ')
         urwid.connect_signal(self.text_edit, 'change',
                              self._text_input_changed)
@@ -53,7 +55,9 @@ class ApplicationView(object):
                                                     urwid.Divider(),
                                                     self.encode_button_map])
         self.body_listbox = urwid.ListBox(self.body_content)
-        self.overlay_bottom = urwid.Filler(self.title_map, 'top')
+        self.overlay_bottom = urwid.Frame(urwid.SolidFill(),
+                                          header=self.title_map,
+                                          footer=self.help_map)
         self.overlay_bottom_map = urwid.AttrMap(self.overlay_bottom, 'bg')
         self.top = urwid.Overlay(self.body_listbox,
                                  self.overlay_bottom_map,
