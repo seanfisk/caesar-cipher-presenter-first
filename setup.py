@@ -21,11 +21,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 install_requirements = [
-    'argparse',
-]
-
-test_requirements = [
-    'mock'
+    'urwid'
 ]
 
 # see here for more options:
@@ -59,13 +55,11 @@ setup(name=metadata.title,
       install_requires=install_requirements,
       zip_safe=False,  # don't use eggs
       entry_points={
-          # 'console_scripts': [
-          #     'caesar_cipher = caesar_cipher.curses.main:main'
-          # ],
+          'console_scripts': [
+              'caesar_cipher = caesar_cipher.curses.main:main'
+          ],
           'gui_scripts': [
               'caesar_cipher_gui = caesar_cipher.qt.main:main'
           ]
-      },
-      test_requires=test_requirements,
-      test_suite='test.test_all'
+      }
       )
