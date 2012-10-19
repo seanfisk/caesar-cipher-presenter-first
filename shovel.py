@@ -117,3 +117,17 @@ def test_all():
     for runner in TestRunner.__subclasses__():
         success &= runner().run() == 0
     sys.exit(int(not success))
+
+
+@task
+def curses():
+    """Run the curses-based interface."""
+    from caesar_cipher.curses.main import main
+    main([])
+
+
+@task
+def qt():
+    """Run the Qt-based interface."""
+    from caesar_cipher.qt.main import main
+    main([])
