@@ -56,10 +56,10 @@ setup(name=metadata.title,
       zip_safe=False,  # don't use eggs
       entry_points={
           'console_scripts': [
-              'caesar_cipher = caesar_cipher.curses.main:main'
+              'caesar-cipher = caesar_cipher.curses.main:main'
           ],
           'gui_scripts': [
-              'caesar_cipher_gui = caesar_cipher.qt.main:main'
+              'caesar-cipher-gui = caesar_cipher.qt.main:main'
           ]
       }
       )
