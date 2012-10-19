@@ -3,12 +3,8 @@ import unittest
 from mock import patch, sentinel, call, MagicMock
 
 
-# We don't want to require `PySide.QtGui' for testing, since we are
-# not testing our user interface. However, we may require
-# `PySide.QtCore' since we are using Qt's signals and slots
-# mechanism. Since the `composers' module under test doesn't require
-# either `PySide.QtGui' or PySide.QtCore, just patch the entire
-# `PySide' module.
+# We don't want to require the `PySide' module for testing, since we
+# are not testing our user interface. Just patch the entire module.
 @patch.dict('sys.modules', {'PySide': MagicMock()})
 class TestCreateApplicationPresenter(unittest.TestCase):
 
