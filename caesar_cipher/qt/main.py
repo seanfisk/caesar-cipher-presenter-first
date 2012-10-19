@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""":mod:`caesar_cipher.main` -- Caesar cipher main
+""":mod:`caesar_cipher.qt.main` -- Caesar cipher Qt main
 """
 
 import sys
@@ -7,7 +7,7 @@ import sys
 from PySide import QtGui
 
 from caesar_cipher.utils import parse_arguments
-from caesar_cipher.composers import create_qt_presenter
+from caesar_cipher.qt.composers import create_application_presenter
 
 
 def main(argv=None):
@@ -25,7 +25,7 @@ def main(argv=None):
 
     args = parse_arguments(argv)
 
-    presenter = create_qt_presenter()
+    presenter = create_application_presenter()
 
     return app.exec_()
 
