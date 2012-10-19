@@ -17,6 +17,7 @@ class ApplicationPresenter(object):
 
     def register_for_events(self):
         """Connect view methods to presenter methods."""
+        self.model.started.append(self.view.start)
         self.view.submitted.connect(self._user_submits)
         self.view.auto_encrypt_toggled.connect(self._auto_encrypt_toggled)
 

@@ -12,7 +12,11 @@ class TestApplicationPresenter(unittest.TestCase):
         self.presenter = ApplicationPresenter(self.mock_model, self.mock_view)
 
     def test_register_for_events(self):
+        self.mock_view.start = sentinel.start
         self.presenter.register_for_events()
+
+        self.mock_model.started.append.\
+            assert_called_once_with(sentinel.start)
 
         self.mock_view.submitted.\
             connect.assert_called_once_with(self.presenter._user_submits)

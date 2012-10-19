@@ -1,4 +1,4 @@
-""":mod:`caesar_cipher.qt.views` --- Application user interface with Qt
+""":mod:`caesar_cipher.views` --- Application user interface
 """
 
 from PySide import QtCore, QtGui
@@ -49,8 +49,6 @@ class ApplicationView(QtGui.QMainWindow):
         self.submit_button.clicked.connect(self._submit_clicked)
         self.layout.addRow(self.submit_button)
 
-    def start(self):
-        """Show and raise the window."""
         # Show it!
         self.show()
         self.raise_()

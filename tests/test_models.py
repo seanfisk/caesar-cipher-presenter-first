@@ -1,6 +1,20 @@
 import unittest
 
+import mock
+
 from caesar_cipher.models import ApplicationModel
+from caesar_cipher.utils import Event
+
+
+class TestRun(unittest.TestCase):
+    def setUp(self):
+        self.model = ApplicationModel()
+
+    def test_run(self):
+        mock_on_started = mock.MagicMock(spec=Event, spec_set=True)
+        self.model.started.append(mock_on_started)
+        self.model.run()
+        mock_on_started.assert_called_once_with()
 
 
 class TestCaesarEncode(unittest.TestCase):

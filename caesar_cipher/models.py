@@ -5,9 +5,17 @@ ASCII_LOWER_OFFSET = ord('a')
 ASCII_UPPER_OFFSET = ord('A')
 ALPHABET_SIZE = 26
 
+from caesar_cipher.utils import Event
+
 
 class ApplicationModel(object):
     """Primary application model."""
+
+    started = Event()
+
+    def run(self):
+        self.started()
+
     def caesar_encode(self, text, key):
         """Encode a Caesar cipher.
 
