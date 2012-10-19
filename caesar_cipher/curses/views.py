@@ -1,61 +1,73 @@
-""":mod:`caesar_cipher.views` --- Application user interface
+""":mod:`caesar_cipher.curses.views` --- curses user interface
 """
 
-from PySide import QtCore, QtGui
+import urwid
+
 from caesar_cipher import metadata
+from caesar_cipher.utils import Event
 
 
-class ApplicationView(QtGui.QMainWindow):
+def field_attr(widget):
+    return urwid.AttrMap(widget, 'field')
+
+
+class ApplicationView(object):
     """Primary application view."""
-    submitted = QtCore.Signal(str, str)
-    text_changed = QtCore.Signal(str, str)
-    auto_encrypt_toggled = QtCore.Signal(bool)
+    submitted = Event()
+    text_changed = Event()
+    auto_encrypt_toggled = Event()
 
-    def __init__(self, parent=None):
-        """Construct a main view.
+    palette = [
+        ('title', 'white', 'black'),
+        ('bg', 'default', 'light blue'),
+        ('field', 'black', 'light gray'),
+    ]
 
-        :param parent: widget parent
-        :type parent: :class:`QtGui.QWidget`
-        """
-        super(ApplicationView, self).__init__(parent)
+    def __init__(self):
+        self.title_map = urwid.AttrMap(
+            urwid.Text('Caesar Cipher', align='center'), 'title')
+        self.text_edit = urwid.Edit(caption='Text: ')
+        urwid.connect_signal(self.text_edit, 'change',
+                             self._text_input_changed)
+        self.text_edit_map = field_attr(self.text_edit)
+        self.key_edit = urwid.IntEdit(caption='Key: ')
+        self.key_edit_map = field_attr(self.key_edit)
+        self.auto_encrypt_checkbox = urwid.CheckBox(label='Auto-Encrypt',
+                                                    has_mixed=False)
+        urwid.connect_signal(self.auto_encrypt_checkbox, 'change',
+                             self._auto_encrypt_state_changed)
+        self.auto_encrypt_map = field_attr(self.auto_encrypt_checkbox)
+        self.result_text = urwid.Text('')
+        self.result_text_map = field_attr(self.result_text)
+        self.encode_button = urwid.Button('Encode')
+        self.encode_button_map = field_attr(self.encode_button)
+        urwid.connect_signal(self.encode_button, 'click',
+                             self._submit_clicked)
+        self.body_content = urwid.SimpleListWalker([self.text_edit_map,
+                                                    urwid.Divider(),
+                                                    self.key_edit_map,
+                                                    urwid.Divider(),
+                                                    self.auto_encrypt_map,
+                                                    urwid.Divider(),
+                                                    self.result_text_map,
+                                                    urwid.Divider(),
+                                                    self.encode_button_map])
+        self.body_listbox = urwid.ListBox(self.body_content)
+        self.overlay_bottom = urwid.Filler(self.title_map, 'top')
+        self.overlay_bottom_map = urwid.AttrMap(self.overlay_bottom, 'bg')
+        self.top = urwid.Overlay(self.body_listbox,
+                                 self.overlay_bottom_map,
+                                 'center',
+                                 ('relative', 50),
+                                 'middle',
+                                 ('relative', 50))
 
-        self.setCentralWidget(QtGui.QWidget(self))
-
-        # Menu
-        self.menu_bar = QtGui.QMenuBar()
-        self.file_menu = self.menu_bar.addMenu('&File')
-        self.quit_action = self.file_menu.addAction('&Quit')
-        self.quit_action.triggered.connect(self.close)
-        self.help_menu = self.menu_bar.addMenu('&Help')
-        self.about_action = self.help_menu.addAction('&About')
-        self.about_action.triggered.connect(self.about)
-        self.setMenuBar(self.menu_bar)
-
-        # Layout
-        self.layout = QtGui.QFormLayout(self.centralWidget())
-        self.text_input = QtGui.QPlainTextEdit(self.centralWidget())
-        self.text_input.textChanged.connect(self._text_input_changed)
-        self.layout.addRow('Text', self.text_input)
-        self.key_input = QtGui.QLineEdit(self.centralWidget())
-        self.layout.addRow('Key', self.key_input)
-        self.auto_encrypt = QtGui.QCheckBox()
-        self.auto_encrypt.stateChanged.connect(
-            self._auto_encrypt_state_changed)
-        self.layout.addRow('Auto-Encrypt', self.auto_encrypt)
-        self.result_output = QtGui.QPlainTextEdit(self.centralWidget())
-        self.result_output.setReadOnly(True)
-        self.layout.addRow('Result', self.result_output)
-        self.submit_button = QtGui.QPushButton('Encode', self.centralWidget())
-        self.submit_button.clicked.connect(self._submit_clicked)
-        self.layout.addRow(self.submit_button)
-
-        # Show it!
-        self.show()
-        self.raise_()
-
-    def about(self):
-        """Create and show the about dialog."""
-        AboutDialog(self).exec_()
+    def start(self):
+        """Start the main loop."""
+        loop = urwid.MainLoop(self.top,
+                              palette=self.palette,
+                              unhandled_input=self._exit)
+        loop.run()
 
     def get_text(self):
         """Return the widget's entered text.
@@ -63,7 +75,7 @@ class ApplicationView(QtGui.QMainWindow):
         :return: the text
         :rtype: :class:`str`
         """
-        return self.text_input.toPlainText()
+        return self.text_edit.get_edit_text()
 
     def get_key(self):
         """Return the widget's entered key.
@@ -71,7 +83,7 @@ class ApplicationView(QtGui.QMainWindow):
         :return: the key
         :rtype: :class:`str`
         """
-        return self.key_input.text()
+        return self.key_edit.get_edit_text()
 
     def set_result(self, result):
         """Set encoded text result.
@@ -79,46 +91,25 @@ class ApplicationView(QtGui.QMainWindow):
         :param result: the encoded text
         :type result: :class:`str`
         """
-        self.result_output.setPlainText(result)
+        self.result_text.set_text(result)
 
     def show_error(self, message):
-        """Show the user an error dialog.
+        """Show the user an error message.
 
         :param message: error message
         :type message: :class:`str`
         """
-        error_dialog = QtGui.QErrorMessage(self)
-        error_dialog.showMessage(message)
+        self.result_text.set_text('Error: invalid key')
 
-    def _submit_clicked(self):
-        self.submitted.emit(self.get_text(), self.get_key())
+    def _submit_clicked(self, button):
+        self.submitted(self.get_text(), self.get_key())
 
-    def _auto_encrypt_state_changed(self, int):
-        self.auto_encrypt_toggled.emit(self.auto_encrypt.isChecked())
+    def _auto_encrypt_state_changed(self, checkbox, state):
+        self.auto_encrypt_toggled(state)
 
-    def _text_input_changed(self):
-        self.text_changed.emit(self.get_text(), self.get_key())
+    def _text_input_changed(self, edit_field, text):
+        self.text_changed(text, self.get_key())
 
-
-class AboutDialog(QtGui.QDialog):
-    """Shows information about the program."""
-    def __init__(self, parent=None):
-        """Construct the dialog.
-
-        :param parent: the widget's parent
-        :type parent: :class:`QtGui.QWidget`
-        """
-        super(AboutDialog, self).__init__(parent)
-        self.setWindowTitle('About ' + metadata.nice_title)
-        self.layout = QtGui.QVBoxLayout(self)
-        self.title_label = QtGui.QLabel(metadata.nice_title, self)
-        self.layout.addWidget(self.title_label)
-        self.version_label = QtGui.QLabel('Version ' + metadata.version, self)
-        self.layout.addWidget(self.version_label)
-        self.copyright_label = QtGui.QLabel('Copyright (C) ' +
-                                            metadata.copyright, self)
-        self.layout.addWidget(self.copyright_label)
-        self.url_label = QtGui.QLabel(
-            '<a href="{0}">{0}</a>'.format(metadata.url), self)
-        self.url_label.setOpenExternalLinks(True)
-        self.layout.addWidget(self.url_label)
+    def _exit(self, input):
+        if input == 'esc':
+            raise urwid.ExitMainLoop()
