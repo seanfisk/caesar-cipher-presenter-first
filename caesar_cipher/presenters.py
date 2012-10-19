@@ -18,8 +18,8 @@ class ApplicationPresenter(object):
     def register_for_events(self):
         """Connect view methods to presenter methods."""
         self.model.started.append(self.view.start)
-        self.view.submitted.connect(self._user_submits)
-        self.view.auto_encrypt_toggled.connect(self._auto_encrypt_toggled)
+        self.view.submitted.append(self._user_submits)
+        self.view.auto_encrypt_toggled.append(self._auto_encrypt_toggled)
 
     def _auto_encrypt_toggled(self, switch_on):
         """Toggle auto-encrypt on or off.
@@ -28,9 +28,9 @@ class ApplicationPresenter(object):
         :type switch_on: :class:`bool`
         """
         if switch_on:
-            self.view.text_changed.connect(self._user_submits)
+            self.view.text_changed.append(self._user_submits)
         else:
-            self.view.text_changed.disconnect(self._user_submits)
+            self.view.text_changed.remove(self._user_submits)
 
     def _user_submits(self, text, key):
         """Handle user submission.

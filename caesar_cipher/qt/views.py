@@ -2,14 +2,16 @@
 """
 
 from PySide import QtCore, QtGui
+
 from caesar_cipher import metadata
+from caesar_cipher.utils import Event
 
 
 class ApplicationView(QtGui.QMainWindow):
     """Primary application view."""
-    submitted = QtCore.Signal(str, str)
-    text_changed = QtCore.Signal(str, str)
-    auto_encrypt_toggled = QtCore.Signal(bool)
+    submitted = Event()
+    text_changed = Event()
+    auto_encrypt_toggled = Event()
 
     def __init__(self, parent=None):
         """Construct a main view.
@@ -93,13 +95,13 @@ class ApplicationView(QtGui.QMainWindow):
         error_dialog.showMessage(message)
 
     def _submit_clicked(self):
-        self.submitted.emit(self.get_text(), self.get_key())
+        self.submitted(self.get_text(), self.get_key())
 
     def _auto_encrypt_state_changed(self, int):
-        self.auto_encrypt_toggled.emit(self.auto_encrypt.isChecked())
+        self.auto_encrypt_toggled(self.auto_encrypt.isChecked())
 
     def _text_input_changed(self):
-        self.text_changed.emit(self.get_text(), self.get_key())
+        self.text_changed(self.get_text(), self.get_key())
 
 
 class AboutDialog(QtGui.QDialog):

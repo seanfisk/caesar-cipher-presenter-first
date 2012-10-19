@@ -18,20 +18,19 @@ class TestApplicationPresenter(unittest.TestCase):
         self.mock_model.started.append.\
             assert_called_once_with(sentinel.start)
 
-        self.mock_view.submitted.\
-            connect.assert_called_once_with(self.presenter._user_submits)
-        self.mock_view.auto_encrypt_toggled.\
-            connect.assert_called_once_with(
-                self.presenter._auto_encrypt_toggled)
+        self.mock_view.submitted.append.\
+            assert_called_once_with(self.presenter._user_submits)
+        self.mock_view.auto_encrypt_toggled.append.\
+            assert_called_once_with(self.presenter._auto_encrypt_toggled)
 
     def test_auto_encrypt_on(self):
         self.presenter._auto_encrypt_toggled(True)
-        self.mock_view.text_changed.connect.assert_called_once_with(
+        self.mock_view.text_changed.append.assert_called_once_with(
             self.presenter._user_submits)
 
     def test_auto_encrypt_off(self):
         self.presenter._auto_encrypt_toggled(False)
-        self.mock_view.text_changed.disconnect.assert_called_once_with(
+        self.mock_view.text_changed.remove.assert_called_once_with(
             self.presenter._user_submits)
 
     def test_user_submits_correct_format(self):
