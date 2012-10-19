@@ -1,10 +1,10 @@
 API Documentation
 =================
 
-:mod:`main` Module
-------------------
+:mod:`caesar_cipher` Package
+----------------------------
 
-.. automodule:: caesar_cipher.main
+.. automodule:: caesar_cipher.__init__
     :members:
     :undoc-members:
     :show-inheritance:
@@ -17,27 +17,12 @@ API Documentation
     :undoc-members:
     :show-inheritance:
 
-:mod:`composers` Module
------------------------
-
-.. automodule:: caesar_cipher.composers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`models` Module
 --------------------
 
 .. automodule:: caesar_cipher.models
     :members:
     :undoc-members:
-    :show-inheritance:
-
-:mod:`views` Module
--------------------
-
-.. automodule:: caesar_cipher.views
-    :members:
     :show-inheritance:
 
 :mod:`presenters` Module
@@ -47,4 +32,20 @@ API Documentation
     :members:
     :undoc-members:
     :show-inheritance:
+
+:mod:`utils` Module
+-------------------
+
+.. automodule:: caesar_cipher.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+    caesar_cipher.curses
+    caesar_cipher.qt
 

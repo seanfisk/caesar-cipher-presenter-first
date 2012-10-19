@@ -11,7 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   api_doc
+   caesar_cipher
    todo
 
 
