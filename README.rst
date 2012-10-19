@@ -6,9 +6,11 @@ A `Presenter First`_ implementation of Sean's previous `Caesar cipher program`_.
 .. _Presenter First: http://atomicobject.com/pages/Presenter+First
 .. _Caesar cipher program: https://github.com/seanfisk/caesar-cipher
 
-Test are written using `unittest` and mocks are created using
-`mock`.
+Test are written using ``unittest`` utilizing mocks created with ``mock``.
 
-Run the tests in the following way::
+Shovel_ is used for running miscellaneous tasks. Run the tests in the following way::
 
-    python test.py
+    pip install -r requirements-test.txt # only needs to be run once
+    shovel test
+
+.. _Shovel: https://github.com/seomoz/shovel
