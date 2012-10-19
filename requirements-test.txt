@@ -1,4 +1,4 @@
---requirements requirements.txt
+--requirement requirements.txt
 
 mock
 pep8
