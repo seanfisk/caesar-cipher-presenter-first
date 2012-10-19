@@ -1,4 +1,4 @@
-""":mod:`caesar_cipher.views` --- Application user interface
+""":mod:`caesar_cipher.qt.views` --- Application user interface with Qt
 """
 
 from PySide import QtCore, QtGui

@@ -1,4 +1,4 @@
-""":mod:`caesar_cipher.composers` --- Functions to create Qt presenters
+""":mod:`caesar_cipher.qt.composers` --- Functions to create Qt presenters
 """
 
 from caesar_cipher.models import ApplicationModel
