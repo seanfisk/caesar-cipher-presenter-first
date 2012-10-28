@@ -2,4 +2,4 @@ language: python
 python:
   - "2.7"
 script: shovel test_all
-install: pip install --requirement requirements-test.txt --use-mirrors
+install: pip install --requirement requirements/test.txt --use-mirrors

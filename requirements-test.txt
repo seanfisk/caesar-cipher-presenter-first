@@ -1,6 +1,0 @@
---requirement requirements.txt
-
-mock
-pep8
-shovel
-py
