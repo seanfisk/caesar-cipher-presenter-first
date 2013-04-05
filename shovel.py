@@ -2,121 +2,73 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import abc
 import sys
-import unittest as unittest_module
+import unittest
+import subprocess
 
-from py.io import TerminalWriter
-import pep8 as pep8module
 from shovel import task
 
+# Add the current directory to the path so we can find the `better_banner'
+# module.
 sys.path.append('.')
 
 CODE_DIRECTORY = 'caesar_cipher'
 TESTS_DIRECTORY = 'tests'
-CHECK_FILES = [CODE_DIRECTORY,
-               TESTS_DIRECTORY,
-               'setup.py',
-               'shovel.py']
+LINT_FILES = [CODE_DIRECTORY,
+              TESTS_DIRECTORY,
+              'setup.py',
+              'shovel.py']
 
-test_all_loader = unittest_module.TestLoader().discover(TESTS_DIRECTORY)
-
-
-class TestRunner(object):
-    """Abstract test runner base class."""
-    __metaclass__ = abc.ABCMeta
-
-    def __init__(self, terminal_writer=TerminalWriter()):
-        self.terminal_writer = terminal_writer
-
-    @abc.abstractproperty
-    def name(self):
-        """Return the lowercase name of the test runner.
-
-        :return: the name
-        :rtype: :class:`str`
-        """
-        return ''
-
-    @abc.abstractproperty
-    def title(self):
-        """Return the proper title of the test runner.
-
-        :return: the title
-        :type: :class:`str`
-        """
-        return ''
-
-    @abc.abstractmethod
-    def run(self):
-        """Run the test runner.
-
-        :return: number of errors, or exit code (0 is success, >1 is failure)
-        :rtype: :class:`int`
-        """
-        self.terminal_writer.sep('=', self.title())
+test_all_loader = unittest.TestLoader().discover(TESTS_DIRECTORY)
 
 
-class UnitTestRunner(TestRunner):
-    """Runner for unittest unit tests."""
-    def name(self):
-        return 'tests'
+def _test():
+    """Run the unit test suite and return a status code.
 
-    def title(self):
-        return 'unittest tests'
-
-    def run(self):
-        """Run all unit tests.
-
-        :return: whether tests were successful
-        :rtype: :class:`int`
-        """
-        super(UnitTestRunner, self).run()
-        result = unittest_module.TextTestRunner(
-            stream=sys.stdout).run(test_all_loader)
-        return int(not result.wasSuccessful())
+    :return: status code
+    :rtype: :class:`int`
+    """
+    print('unit test suite\n===============')
+    result = unittest.TextTestRunner(
+        stream=sys.stdout).run(test_all_loader)
+    return int(not result.wasSuccessful())
 
 
-class StyleGuideRunner(TestRunner):
-    def name(self):
-        return 'pep8'
+def _lint():
+    """Perform a lint check using flake8 and return a status code.
 
-    def title(self):
-        return 'PEP8 Style Guide'
-
-    def run(self):
-        """Run PEP8 style guide checker on code and test files.
-
-        :return: the number of errors
-        :rtype: :class:`int`
-        """
-        super(StyleGuideRunner, self).run()
-        pep8_style = pep8module.StyleGuide()
-        report = pep8_style.check_files(CHECK_FILES)
-        if report.total_errors == 0:
-            print('No style errors')
-        return report.total_errors
+    :return: status code
+    :rtype: :class:`int`
+    """
+    print('flake8 lint check\n=================')
+    # Flake8 doesn't have an easy way to run checks using a Python
+    # function, so just fork off another process to do it.
+    status_code = subprocess.call(['flake8', '--max-complexity=10'] +
+                                  LINT_FILES)
+    if status_code == 0:
+        print('All good')
+    return status_code
 
 
 @task
-def pep8():
-    """Perform a PEP8 style check on the code."""
-    sys.exit(StyleGuideRunner().run())
+def test():
+    """Run the unit test suite."""
+    raise SystemExit(_test())
 
 
 @task
-def unittest():
-    """Run all unit tests."""
-    sys.exit(UnitTestRunner().run())
+def lint():
+    """Perform a lint check using flake8."""
+    raise SystemExit(_lint())
 
 
 @task
 def test_all():
-    """Perform a style check and run all unit tests."""
-    success = True
-    for runner in TestRunner.__subclasses__():
-        success &= runner().run() == 0
-    sys.exit(int(not success))
+    """Run the unit test suite and lint check using flake8."""
+    status_code = _lint()
+    print()
+    status_code += _test()
+    raise SystemExit(status_code)
 
 
 @task

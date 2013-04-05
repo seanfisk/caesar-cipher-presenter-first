@@ -4,8 +4,6 @@
 
 import sys
 
-import urwid
-
 from caesar_cipher.utils import parse_arguments
 from caesar_cipher.curses.composers import create_application_presenter
 
@@ -21,9 +19,11 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    args = parse_arguments(argv)
+    parse_arguments(argv)
 
-    presenter = create_application_presenter()
+    # To be safe, assign the presenter to a variable so it is not thrown away
+    # by the Python garbage collector, which uses reference counting.
+    presenter = create_application_presenter()  # NOQA
 
 if __name__ == '__main__':
     sys.exit(main())

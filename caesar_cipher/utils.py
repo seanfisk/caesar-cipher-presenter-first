@@ -1,7 +1,6 @@
 """:mod:`caesar_cipher.utils` --- Miscellaneous utilities
 """
 
-import sys
 import argparse
 
 from caesar_cipher import metadata

@@ -1,7 +1,7 @@
 """:mod:`caesar_cipher.qt.views` --- Application user interface with Qt
 """
 
-from PySide import QtCore, QtGui
+from PySide import QtGui
 
 from caesar_cipher import metadata
 from caesar_cipher.utils import Event

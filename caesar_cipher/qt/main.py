@@ -23,9 +23,11 @@ def main(argv=None):
 
     app = QtGui.QApplication(argv)
 
-    args = parse_arguments(argv)
+    parse_arguments(argv)
 
-    presenter = create_application_presenter()
+    # To be safe, assign the presenter to a variable so it is not thrown away
+    # by the Python garbage collector, which uses reference counting.
+    presenter = create_application_presenter()  # NOQA
 
     return app.exec_()
 

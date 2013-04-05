@@ -1,6 +1,6 @@
 import unittest
 
-from mock import patch, sentinel, call, MagicMock
+from mock import patch, sentinel, call
 
 from caesar_cipher.curses.composers import create_application_presenter
 

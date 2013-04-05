@@ -3,7 +3,6 @@
 
 import urwid
 
-from caesar_cipher import metadata
 from caesar_cipher.utils import Event
 
 
