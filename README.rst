@@ -8,9 +8,17 @@ A `Presenter First`_ implementation of a `Caesar Cipher`_ by `Sean Fisk`_ and `G
 .. image:: https://secure.travis-ci.org/seanfisk/caesar-cipher-presenter-first.png
    :target: https://secure.travis-ci.org/seanfisk/caesar-cipher-presenter-first
 
-============
-Installation
-============
+=================
+ Presenter First
+=================
+
+`Presenter First`_ is a extension of the `Model-View-Presenter`_ architecture for organizing user interface development. This project is an example of a Python program developed using Presenter First which supports multiple user interfaces.
+
+.. _Model-View-Presenter: http://en.wikipedia.org/wiki/Model_View_Presenter
+
+==============
+ Installation
+==============
 
 ------------------------
 Creating the environment
