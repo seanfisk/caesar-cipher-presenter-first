@@ -11,9 +11,12 @@ from caesar_cipher.utils import Event
 class ApplicationModel(object):
     """Primary application model."""
 
-    started = Event()
+    def __init__(self):
+        """Create event for when application starts."""
+        self.started = Event()
 
     def run(self):
+        """Called after the model is created."""
         self.started()
 
     def caesar_encode(self, text, key):

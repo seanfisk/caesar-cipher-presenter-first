@@ -12,9 +12,6 @@ def field_attr(widget):
 
 class ApplicationView(object):
     """Primary application view."""
-    submitted = Event()
-    text_changed = Event()
-    auto_encrypt_toggled = Event()
 
     palette = [
         ('title', 'white', 'black'),
@@ -23,6 +20,9 @@ class ApplicationView(object):
     ]
 
     def __init__(self):
+        self.submitted = Event()
+        self.text_changed = Event()
+        self.auto_encrypt_toggled = Event()
         self.title_map = urwid.AttrMap(
             urwid.Text('Caesar Cipher', align='center'), 'title')
         self.help_map = urwid.AttrMap(
@@ -105,14 +105,18 @@ class ApplicationView(object):
         self.result_text.set_text('Error: invalid key')
 
     def _submit_clicked(self, button):
+        """Private function called to encode text in text box."""
         self.submitted(self.get_text(), self.get_key())
 
     def _auto_encrypt_state_changed(self, checkbox, state):
+        """Private function called after changing auto-encode checkbox."""
         self.auto_encrypt_toggled(state)
 
     def _text_input_changed(self, edit_field, text):
+        """Private function called after text changes in text box."""
         self.text_changed(text, self.get_key())
 
     def _exit(self, input):
+        """Private function to exit curses interface."""
         if input == 'esc':
             raise urwid.ExitMainLoop()

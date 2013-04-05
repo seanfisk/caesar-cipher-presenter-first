@@ -21,7 +21,6 @@ def main(argv):
     :rtype: :class:`int`
     """
     app = QtGui.QApplication(argv)
-
     parse_arguments(argv)
 
     model = ApplicationModel()
