@@ -9,14 +9,6 @@ curses Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`composers` Module
------------------------
-
-.. automodule:: caesar_cipher.curses.composers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`main` Module
 ------------------
 
