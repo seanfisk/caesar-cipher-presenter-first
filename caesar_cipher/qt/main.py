@@ -20,15 +20,12 @@ def main(argv=None):
     """
     if argv is None:
         argv = sys.argv
-
     app = QtGui.QApplication(argv)
-
     parse_arguments(argv)
 
     # To be safe, assign the presenter to a variable so it is not thrown away
     # by the Python garbage collector, which uses reference counting.
     presenter = create_application_presenter()  # NOQA
-
     return app.exec_()
 
 if __name__ == '__main__':

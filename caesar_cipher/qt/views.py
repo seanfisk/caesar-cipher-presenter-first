@@ -9,10 +9,6 @@ from caesar_cipher.utils import Event
 
 class ApplicationView(QtGui.QMainWindow):
     """Primary application view."""
-    submitted = Event()
-    text_changed = Event()
-    auto_encrypt_toggled = Event()
-
     def __init__(self, parent=None):
         """Construct a main view.
 
@@ -20,8 +16,12 @@ class ApplicationView(QtGui.QMainWindow):
         :type parent: :class:`QtGui.QWidget`
         """
         super(ApplicationView, self).__init__(parent)
-
         self.setCentralWidget(QtGui.QWidget(self))
+
+        #Events
+        self.submitted = Event()
+        self.text_changed = Event()
+        self.auto_encrypt_toggled = Event()
 
         # Menu
         self.menu_bar = QtGui.QMenuBar()
@@ -53,7 +53,6 @@ class ApplicationView(QtGui.QMainWindow):
 
     def start(self):
         """Show and raise the window."""
-        # Show it!
         self.show()
         self.raise_()
 
@@ -95,12 +94,15 @@ class ApplicationView(QtGui.QMainWindow):
         error_dialog.showMessage(message)
 
     def _submit_clicked(self):
+        """Private function called to encode text in text box."""
         self.submitted(self.get_text(), self.get_key())
 
-    def _auto_encrypt_state_changed(self, int):
-        self.auto_encrypt_toggled(self.auto_encrypt.isChecked())
+    def _auto_encrypt_state_changed(self, checked):
+        """Private function called after changing auto-encode checkbox."""
+        self.auto_encrypt_toggled(checked)
 
     def _text_input_changed(self):
+        """Private function called after text changes in text box."""
         self.text_changed(self.get_text(), self.get_key())
 
 
