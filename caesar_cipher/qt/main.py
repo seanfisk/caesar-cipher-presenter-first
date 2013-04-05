@@ -7,10 +7,12 @@ import sys
 from PySide import QtGui
 
 from caesar_cipher.utils import parse_arguments
-from caesar_cipher.qt.composers import create_application_presenter
+from caesar_cipher.models import ApplicationModel
+from caesar_cipher.qt.views import ApplicationView
+from caesar_cipher.presenters import ApplicationPresenter
 
 
-def main(argv=None):
+def main(argv):
     """Program entry point.
 
     :param argv: argument vector
@@ -18,15 +20,16 @@ def main(argv=None):
     :return: status code
     :rtype: :class:`int`
     """
-    if argv is None:
-        argv = sys.argv
     app = QtGui.QApplication(argv)
     parse_arguments(argv)
 
-    # To be safe, assign the presenter to a variable so it is not thrown away
-    # by the Python garbage collector, which uses reference counting.
-    presenter = create_application_presenter()  # NOQA
+    model = ApplicationModel()
+    view = ApplicationView()
+    presenter = ApplicationPresenter(model, view)
+    presenter.register_for_events()
+    model.run()
+
     return app.exec_()
 
 if __name__ == '__main__':
-    sys.exit(main())
+    raise SystemExit(sys.argv)

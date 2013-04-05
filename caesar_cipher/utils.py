@@ -47,25 +47,26 @@ class Event(list):
     A list of callable objects. Calling an instance of this will cause a
     call to each item in the list in ascending order by index.
 
-    Example Usage:
-    >>> def f(x):
-    ...     print 'f({0})'.format(x)
-    >>> def g(x):
-    ...     print 'g({0})'.format(x)
-    >>> e = Event()
-    >>> e()
-    >>> e.append(f)
-    >>> e(123)
-    f(123)
-    >>> e.remove(f)
-    >>> e()
-    >>> e += (f, g)
-    >>> e(10)
-    f(10)
-    g(10)
-    >>> del e[0]
-    >>> e(2)
-    g(2)
+    Example usage::
+
+        >>> def f(x):
+        ...     print 'f({0})'.format(x)
+        >>> def g(x):
+        ...     print 'g({0})'.format(x)
+        >>> e = Event()
+        >>> e()
+        >>> e.append(f)
+        >>> e(123)
+        f(123)
+        >>> e.remove(f)
+        >>> e()
+        >>> e += (f, g)
+        >>> e(10)
+        f(10)
+        g(10)
+        >>> del e[0]
+        >>> e(2)
+        g(2)
     """
     def __call__(self, *args, **kwargs):
         for f in self:

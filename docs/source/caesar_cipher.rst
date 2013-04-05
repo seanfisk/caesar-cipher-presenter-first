@@ -48,4 +48,3 @@ Subpackages
 
     caesar_cipher.curses
     caesar_cipher.qt
-

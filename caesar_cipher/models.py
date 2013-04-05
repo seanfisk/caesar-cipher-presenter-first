@@ -1,4 +1,4 @@
-""":mod:`caesar_cipher.models --- Application models`
+""":mod:`caesar_cipher.models` --- Application models
 """
 
 ASCII_LOWER_OFFSET = ord('a')

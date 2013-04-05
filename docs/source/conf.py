@@ -99,19 +99,14 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'flask'
+html_theme = 'nature'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 
-# These must be here to use the Flask theme otherwise the main page title won't
-# show!!!
-html_theme_options = {'index_logo' : '', 'index_logo_height' : ''}
-
 # Add any paths that contain custom themes here, relative to this directory.
-sys.path.append(os.path.abspath('_themes'))
-html_theme_path = ['_themes']
+#html_theme_path = ['_themes']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -257,5 +252,7 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     'python' : ('http://docs.python.org/', None),
-    'PySide' : ('http://www.pyside.org/docs/pyside/', None)
+    'PySide' : (
+        'https://deptinfo-ensip.univ-poitiers.fr/ENS/pyside-docs/',
+        None)
     }
