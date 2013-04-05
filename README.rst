@@ -1,12 +1,12 @@
-A `Presenter First`_ implementation of Sean's previous `Caesar cipher program`_ written by `Sean Fisk` and `Gray Gwizdz`.
+A `Presenter First`_ implementation of a `Caesar Cipher`_ by `Sean Fisk`_ and `Gray Gwizdz`_.
+
+.. _Caesar Cipher: http://en.wikipedia.org/wiki/Caesar_cipher
+.. _Sean Fisk: mailto:sean@seanfisk.com
+.. _Gray Gwizdz: mailto:gray.gwizdz@gmail.com
+.. _Presenter First: http://atomicobject.com/pages/Presenter+First
 
 .. image:: https://secure.travis-ci.org/seanfisk/caesar-cipher-presenter-first.png
    :target: https://secure.travis-ci.org/seanfisk/caesar-cipher-presenter-first
-
-.. Sean Fisk: mailto:sean@seanfisk.com
-.. Gray Gwizdz: mailto:gray.gwizdz@gmail.com
-.. _Presenter First: http://atomicobject.com/pages/Presenter+First
-.. _Caesar cipher program: https://github.com/seanfisk/caesar-cipher
 
 ============
 Installation
@@ -43,7 +43,7 @@ Clone the code::
 Install requirements. This only needs to be run once::
 
     pip install -r requirements/dev.txt
-    
+
 -----------
 Running GUI
 -----------
