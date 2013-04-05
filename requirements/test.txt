@@ -1,6 +1,5 @@
 --requirement base.txt
 
 mock
-pep8
+flake8
 shovel
-py
